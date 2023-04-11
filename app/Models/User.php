@@ -49,6 +49,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+
+    protected $with = [
+        'profilable'
+    ];
+
     /**
      * @return MorphTo
      */
@@ -56,4 +61,14 @@ class User extends Authenticatable
     {
         return $this->morphTo();
     }
+
+    /**
+     * @return string
+     */
+    public function getFullNameAttribute() : string
+    {
+        return $this->first_name . ' ' . $this->last_name;
+    }
+
+
 }

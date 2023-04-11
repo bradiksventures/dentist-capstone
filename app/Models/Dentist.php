@@ -10,6 +10,11 @@ class Dentist extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'prc_number',
+        'dental_clinic_name',
+    ];
+
     public function profile() : MorphOne
     {
         return $this->morphOne(User::class, 'profilable');

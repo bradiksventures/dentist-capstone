@@ -1,19 +1,16 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
+            {{ __('My Appointments') }}
         </h2>
     </x-slot>
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white shadow-md rounded-md">
-                <div class="font-semibold text-lg p-4 rounded-t-md">
-                    Today's Appointments
-                </div>
                 <div class="p-4">
                     <form class="flex items-center">
-                        <label for="name" class="mr-2">Patient Name:</label>
+                        <label for="name" class="mr-2">Name:</label>
                         <input type="text" name="name" id="name" placeholder="Search by name" class="border border-gray-300 rounded py-2 px-4 mr-4">
 
                         <label for="services" class="mr-2">Services:</label>
@@ -21,6 +18,13 @@
                             class="mr-4"
                             name="sex"
                             :options="['' => 'All', 'cleaning' => 'Cleaning', 'filling' => 'Filling']"
+                        />
+
+                        <label for="services" class="mr-2">Status:</label>
+                        <x-select
+                            class="mr-4"
+                            name="sex"
+                            :options="['' => 'All', 'cleaning' => 'Completed', 'filling' => 'Pending']"
                         />
 
                         <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Filter</button>
@@ -74,6 +78,7 @@
                     </table>
                 </div>
             </div>
+
         </div>
     </div>
 </x-app-layout>
