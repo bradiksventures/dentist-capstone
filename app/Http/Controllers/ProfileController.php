@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Dentist;
+use App\Models\DentistSchedule;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -19,10 +21,9 @@ class ProfileController extends Controller
     {
         /** @var User $user */
         $user = $request->user();
-        $user->load('profilable');
 
         return view('profile.edit', [
-            'user' => $request->user(),
+            'user' => $user
         ]);
     }
 

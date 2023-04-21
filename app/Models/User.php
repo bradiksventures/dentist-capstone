@@ -50,8 +50,18 @@ class User extends Authenticatable
     ];
 
 
+    /**
+     * @var string[]
+     */
     protected $with = [
         'profilable'
+    ];
+
+    /**
+     * @var string[]
+     */
+    protected $appends = [
+        'full_name'
     ];
 
     /**

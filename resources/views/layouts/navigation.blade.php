@@ -1,4 +1,4 @@
-@php use App\Models\Dentist; @endphp
+@php use App\Models\Dentist;use App\Models\Patient; @endphp
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -24,13 +24,22 @@
                         </x-nav-link>
                     </div>
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-nav-link :href="route('dentist.appointments')" :active="request()->routeIs('dentist.appointments')">
+                        <x-nav-link :href="route('dentist.appointments')"
+                                    :active="request()->routeIs('dentist.appointments')">
                             {{ __('Appointments') }}
                         </x-nav-link>
                     </div>
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-nav-link :href="route('dentist.services')" :active="request()->routeIs('dentist.services')">
-                            {{ __('Services') }}
+                        <x-nav-link :href="route('dentist.clinic')" :active="request()->routeIs('dentist.clinic')">
+                            {{ __('My Clinic') }}
+                        </x-nav-link>
+                    </div>
+                @endif
+
+                @if(auth()->user()->profilable instanceof Patient)
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link :href="route('patient.find-dentists')" :active="request()->routeIs('patient.find-dentists')">
+                            {{ __('Find Dentists') }}
                         </x-nav-link>
                     </div>
                 @endif

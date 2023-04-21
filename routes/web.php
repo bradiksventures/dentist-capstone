@@ -1,9 +1,13 @@
 <?php
 
+use App\Http\Controllers\Dentist\ManageClinicController;
+use App\Http\Controllers\DentistAppointmentsController;
 use App\Http\Controllers\DentistPatientsController;
 use App\Http\Controllers\DentistServicesController;
+use App\Http\Controllers\Patient\FindDentistsController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UpdateDentistScheduleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,8 +36,22 @@ Route::middleware('auth')->group(function () {
 
 
     Route::get('patients', [DentistPatientsController::class, 'index'])->name('dentist.patients');
-    Route::get('services', [DentistServicesController::class, 'index'])->name('dentist.services');
-    Route::get('appointments', [\App\Http\Controllers\DentistAppointmentsController::class, 'index'])->name('dentist.appointments');
+    Route::get('appointments', [DentistAppointmentsController::class, 'index'])->name('dentist.appointments');
+
+    Route::post('update-dentist-schedule', UpdateDentistScheduleController::class);
+
+    Route::group(['prefix' => 'patient'], function () {
+        Route::get('find-dentists', [FindDentistsController::class, 'index'])->name('patient.find-dentists');
+        Route::get('do-find-dentists', [FindDentistsController::class, 'doFindDentists'])->name('patient.do-find-dentists');
+        Route::get('view-dentist-profile/{dentist}', [FindDentistsController::class, 'viewDentistProfile'])->name('patient.view-dentist-profile');
+        Route::post('view-dentist-availability', [FindDentistsController::class, 'getDentistAvailableSchedules'])->name('patient.view-dentist-availability');
+        Route::post('create-appointment', [FindDentistsController::class, 'createAppointment'])->name('patient.create-appointment');
+    });
+
+    Route::group(['prefix' => 'dentist'], function () {
+        Route::get('my-clinic', [ManageClinicController::class, 'index'])->name('dentist.clinic');
+        Route::post('update-services', [ManageClinicController::class, 'updateServices'])->name('dentist.update-services');
+    });
 });
 
 require __DIR__ . '/auth.php';

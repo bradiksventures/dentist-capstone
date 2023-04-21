@@ -2,37 +2,37 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class DentistSchedule extends Model
+class Appointment extends Model
 {
     use HasFactory;
 
-    /**
-     * @var string[]
-     */
     protected $fillable = [
         'dentist_id',
-        'day',
+        'patient_id',
+        'date',
         'time'
     ];
 
-    public static function default(): array
-    {
-        return [
-            'day' => 1,
-            'time' => null
-        ];
-    }
+    protected $casts = [
+        'date' => 'date'
+    ];
 
     /**
      * @param string $time
      * @return string
      */
-    public function getTimeAttribute(string $time) : string
+    public function getTimeAttribute(string $time): string
     {
         return Carbon::createFromFormat('H:i:s', $time)->format('H:i');
+    }
+
+    public function services() : HasMany
+    {
+        return $this->hasMany(AppointmentService::class);
     }
 }
